@@ -84,9 +84,10 @@ class HarnessCompactionFlushPromptTest {
                         .compaction(compaction)
                         .disableSubagents()
                         .build()) {
+            // Include enough history for the summary and its metadata to reduce the token count.
             List<Msg> history =
                     List.of(
-                            message(MsgRole.USER, "We decided to use Java."),
+                            message(MsgRole.USER, "We decided to use Java. ".repeat(200)),
                             message(MsgRole.ASSISTANT, "Decision recorded."),
                             message(MsgRole.USER, "What did we decide?"));
             RuntimeContext ctx = RuntimeContext.builder().sessionId("prompt-session").build();
